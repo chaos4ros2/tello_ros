@@ -1,12 +1,14 @@
+[日本語README](https://github.com/chaos4ros2/tello_ros/blob/main/README_ja.md/)
+
 # `tello_ros`
 
-`tello_ros`TelloとTello EDUドローン用のROS2ドライバーである。
+`tello_ros`はTelloとTello EDUドローン用のROS2ドライバーである。
 
 ## パッケージ
 
 There are 4 ROS packages:
 * `tello_driver`はドローンにつながるためのC++ ROSノード
-* `tello_msgs`ROSメッセージのセット
+* `tello_msgs`はROSメッセージのセット
 * `tello_description`にロボット記述ファイル（URDF）が含まれている
 * `tello_gazebo`でTelloドローンを[Gazebo](http://gazebosim.org/)上でシミレーションできる、詳しくはそのパッケージ内のREADME.mdを参照してください
 
