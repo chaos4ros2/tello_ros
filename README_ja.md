@@ -1,26 +1,24 @@
 # `tello_ros`
 
-`tello_ros` is a ROS2 driver for Tello and Tello EDU drones.
+`tello_ros`TelloとTello EDUドローン用のROS2ドライバーである。
 
-## Packages
+## パッケージ
 
 There are 4 ROS packages:
-* `tello_driver` is a C++ ROS node that connects to the drone
-* `tello_msgs` is a set of ROS messages
-* `tello_description` contains robot description (URDF) files
-* `tello_gazebo` can be used to simulate a Tello drone in [Gazebo](http://gazebosim.org/),
- see the `README.md` in that package for details
+* `tello_driver`はドローンにつながるためのC++ ROSノード
+* `tello_msgs`ROSメッセージのセット
+* `tello_description`にロボット記述ファイル（URDF）が含まれている
+* `tello_gazebo`でTelloドローンを[Gazebo](http://gazebosim.org/)上でシミレーションできる、詳しくはそのパッケージ内のREADME.mdを参照してください
 
-## Interface
+## インタフェース
 
-### Overview
+### 概略
 
-The driver designed to be very simple while making it easy to integrate Tello drones into the ROS ecosystem.
+このドライバーがシンプルに作られるようにデザインされて、ROSエコシステムにTelloドローンを簡単に統合できるようになっている。
 
-The driver communicates with the drone using the Tello SDK, which has several advantages:
-* The SDK is documented, and there's quite a bit of development activity around it, so it's likely to be stable.
-* The SDK is text-based, which means that `tello_ros` can be simple but still provide full access to the SDK by passing
-arbitrary strings to the drone.
+ドライバーはTello SDKを通じてドローンと通信する、そしていくつかの利点がある：
+* SDKは文書化されていて、開発活動もかなりアクティブのおかげで安定しつつある。
+* TSDKはテキストベースのため、`tello_ros`が任意の文字列を送ることでSDKにシンプルかつフルアクセスできる。
 
 Many Tello commands (e.g., `takeoff` and `land`) are long-running, and the drone returns `ok` or `error` on completion.
 The driver provides the ROS service `tello_command` to initiate commands,
