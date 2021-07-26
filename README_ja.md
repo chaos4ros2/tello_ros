@@ -1,5 +1,3 @@
-[日本語README](https://github.com/chaos4ros2/tello_ros/blob/main/README_ja.md/)
-
 # `tello_ros`
 
 `tello_ros`はTelloとTello EDUドローン用のROS2ドライバーである。

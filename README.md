@@ -1,3 +1,5 @@
+[日本語README](https://github.com/chaos4ros2/tello_ros/blob/master/README_ja.md)
+
 # `tello_ros`
 
 `tello_ros` is a ROS2 driver for Tello and Tello EDU drones.
