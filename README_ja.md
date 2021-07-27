@@ -20,36 +20,35 @@ There are 4 ROS packages:
 * SDKは文書化されていて、開発活動もかなりアクティブのおかげで安定しつつある。
 * TSDKはテキストベースのため、`tello_ros`が任意の文字列を送ることでSDKにシンプルかつフルアクセスできる。
 
-Many Tello commands (e.g., `takeoff` and `land`) are long-running, and the drone returns `ok` or `error` on completion.
-The driver provides the ROS service `tello_command` to initiate commands,
-and the corresponding ROS topic `tello_response` to indicate command completion.
+多くのTelloコマンド（(e.g., `takeoff` と `land`）は長く続く、droneが`ok`あるいは`error`を返すことで終了とする。
+ドライバーはコマンドを初期化するためのROSサービス`tello_command`を提供し、そしてそれに対応するROSトピック
+`tello_response`でコマンドの終了を示す。
 
-Per ROS convention, the driver also responds to `Twist` messages on the `cmd_vel` topic.
-These are translated into `rc` commands and sent to the drone.
-Velocity values are arbitrarily mapped from [-1.0, 1.0] to [-100, 100].
-This may change in the future.
+ROSの慣例に従い、ドライバーは`cmd_vel`トピックを通じて`Twist`メッセージのやり取りをする。
+それらが`rc`コマンドに変換されてドローンに送られる。
+速度は[-1.0, 1.0]から[-100, 100]の間で任意にマップされる。この仕組みは将来変わるかもしれない。
 
-The driver parses telemetry data and sends it on the `flight_data` topic.
-The presence of telemetry data is a good indicator that the drone is connected.
+ドライバーはテレメトリーデータを分析し、`flight_data`トピックへ回送する。
+テレメトリーデータはドローンが正しく接続されている良いインジケータとなっている。
 
-The driver parses the video stream and sends images on the `image_raw` topic.
-Camera information is sent on the `camera_info` topic.
+ドライバーは映像ストリームを解析して`image_raw`トピックに画像を送る。
+カメラの情報が`camera_info`トピックに送られる。
 
-The Tello drones have a sophisticated visual odometry system and an onboard IMU, but there's minimal access 
-to these internal systems. The driver does not publish odometry.
+Telloドローンは洗練されたビジュアルオドメトリシステムと組込みIMUセンサーモジュールを持っているが、
+内部システムへのアクセスは最小限に制限されている。ドライバーはオドメトリを配信しない。
 
-Additional notes:
-* Only one command may be running at a time.
-* If a command (other than `rc`) is currently running, incoming `cmd_vel` messages are ignored.
-* Tello drones do not send responses for `rc` commands, and neither does the driver.
-* The driver sends `command` and `streamon` commands at startup to initiate telemetry and video.
-* If telemetry or video stops, the driver will attempt to restart by sending `command` and `streamon` commands.
-* Roll (`Twist.angular.x`) and pitch (`Twist.angular.y`) are ignored in `cmd_vel` messages.
-* The driver doesn't keep track of state, so it will happily send `rc` messages to the drone even if it's on the ground.
-The drone just ignores them.
-* You can send arbitrary strings to the drone via the `tello_command` service.
-* Tello drones auto-land if no commands are received within 15 seconds.
-The driver sends a `rc 0 0 0 0` command after 12 seconds of silence to avoid this.
+追記事項:
+* 毎回実行できるコマンドは一つだけ。
+* もしコマンド（`rc`以外）は実行中であれば、配信される`cmd_vel`メッセージが無視される。
+* Telloドローンとドライバーは`rc`コマンドにレスポンスを送らない。
+* ドライバーは起動時に`command`と`streamon`コマンドを送信することでテレメトリーとビデオを初期化する。
+* もしテレメトリーあるいはビデオが停止した場合はドライバーは`command`と`streamon`を送ることで再起動するよう試みる。
+* `cmd_vel`メッセージ内のロール(`Twist.angular.x`)とピッチ(`Twist.angular.y`)が無視される。
+* ドライバーは状態を記録しない、なのでドローンは地面の上でも`rc`コマンドを送信して構わない。
+ドローンはただそれを無視する。
+* `tello_command`サービスを通じて任意の文字列をドローンに送ることができる。
+* Telloドローンは15秒以内に何もコマンドを受信しなかったら自動着陸する。
+そのためドライバーは12秒後に`rc 0 0 0 0`コマンドを送信してそれを回避する。
 
 ### Services
 
