@@ -25,7 +25,7 @@ The driver communicates with the drone using the Tello SDK, which has several ad
 arbitrary strings to the drone.
 
 Many Tello commands (e.g., `takeoff` and `land`) are long-running, and the drone returns `ok` or `error` on completion.
-The driver provides the ROS service `tello_command` to initiate commands,
+The driver provides the ROS service `tello_action` to initiate commands,
 and the corresponding ROS topic `tello_response` to indicate command completion.
 
 Per ROS convention, the driver also responds to `Twist` messages on the `cmd_vel` topic.
@@ -51,7 +51,7 @@ Additional notes:
 * Roll (`Twist.angular.x`) and pitch (`Twist.angular.y`) are ignored in `cmd_vel` messages.
 * The driver doesn't keep track of state, so it will happily send `rc` messages to the drone even if it's on the ground.
 The drone just ignores them.
-* You can send arbitrary strings to the drone via the `tello_command` service.
+* You can send arbitrary strings to the drone via the `tello_action` service.
 * Tello drones auto-land if no commands are received within 15 seconds.
 The driver sends a `rc 0 0 0 0` command after 12 seconds of silence to avoid this.
 

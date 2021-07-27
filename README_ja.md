@@ -23,6 +23,7 @@ There are 4 ROS packages:
 多くのTelloコマンド（(e.g., `takeoff` と `land`）は長く続く、droneが`ok`あるいは`error`を返すことで終了とする。
 ドライバーはコマンドを初期化するためのROSサービス`tello_command`を提供し、そしてそれに対応するROSトピック
 `tello_response`でコマンドの終了を示す。
+※ 訳者注：tello_commandが[tello_action](https://github.com/chaos4ros2/tello_ros/commit/c4e39e71deb570de7425d4a23437009967a34658)に変更されている。
 
 ROSの慣例に従い、ドライバーは`cmd_vel`トピックを通じて`Twist`メッセージのやり取りをする。
 それらが`rc`コマンドに変換されてドローンに送られる。
