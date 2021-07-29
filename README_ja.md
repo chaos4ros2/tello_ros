@@ -51,32 +51,32 @@ Telloドローンは洗練されたビジュアルオドメトリシステムと
 * Telloドローンは15秒以内に何もコマンドを受信しなかったら自動着陸する。
 そのためドライバーは12秒後に`rc 0 0 0 0`コマンドを送信してそれを回避する。
 
-### Services
+### サービス
 
 * `~tello_action` tello_msgs/TelloAction
 
-### Subscribed topics
+### 購読トピック
 
 * `~cmd_vel` [geometry_msgs/Twist](http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html)
 
-### Published topics
+### 配信トピック
 
 * `~tello_response` [std_msgs/String](http://docs.ros.org/api/std_msgs/html/msg/String.html)
 * `~flight_data` tello_msgs/FlightData
 * `~image_raw` [sensor_msgs/Image](http://docs.ros.org/api/sensor_msgs/html/msg/Image.html)
 * `~camera_info` [sensor_msgs/CameraInfo](http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html)
 
-### Parameters
+### パラメーター
 
-The defaults work well for a single Tello drone.
+ドローンは一つしかない場合は以下のデフォルト値は正しく動作する。
 
- Name         |  Description |  Default
+ 名前         |  説明 |  デフォルト
 --------------|--------------|----------
-`drone_ip`    | Send commands to this IP address |  `192.168.10.1`
-`drone_port`  | Send commands to this UDP port | `8889`
-`command_port`| Send commands from this UDP port | `38065`
-`data_port`   | Flight data (Tello state) will arrive on this UDP port  | `8890`
-`video_port`  | Video data will arrive on this UDP port |  `11111`
+`drone_ip`    | コマンドをこのIPアドレスに送る |  `192.168.10.1`
+`drone_port`  | このUDPポートにコマンドを送る | `8889`
+`command_port`| このUDPポートから来たコマンドが送られる | `38065`
+`data_port`   | フライトデータ（Tello状態）がこのUDPポートに送信される  | `8890`
+`video_port`  | 画像データがこのUDPポートに送信される |  `11111`
 
 ## Installation
 
