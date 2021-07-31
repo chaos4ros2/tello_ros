@@ -129,7 +129,7 @@ source install/setup.bash
 ros2 launch tello_driver teleop_launch.py
 ~~~
 
-XBox Oneの**メニュー**ボタンで離陸し、**ビュー**ボタンで着陸する。
+XBox Oneの**menu**ボタンで離陸し、**view**ボタンで着陸する。
 
 もしXBox Oneコントローラーを持ってない場合はROS2 CLIを通じてコマンドを送ることができる：
 ~~~~
@@ -154,10 +154,6 @@ ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, 
 
 ## バージョンとブランチ
 
-`tello_ros` was developed along with several other projects while ROS2 was rapidly changing.
-All of the related projects adopted similar conventions around branch names:
-* the `master` branch works with the latest ROS2 release (Eloquent as of this writing)
-* there may be branches for older ROS2 versions, such as `crystal` or `dashing`
 ROS2は急速に変換する間に`tello_ros`はいくつかのプロジェクトを同時に進行してきた。
 すべての関連のプロジェクトは（以下のような）似たようなルールでブランチで分けている。
 * `master`ブランチはROS2の最新バージョンに対応する（このREADMEを書く時点ではEloquent）
@@ -202,5 +198,4 @@ Tello EDU用
 
 #### Tello SDK正誤表
 
-* Tello drones do not respond to `rc` commands (the SDK suggests that they return `ok` or `error`)
 * Telloドローンは`rc`コマンドにレスポンスしない（SDKによると`ok`あるいは`error`を返すだそうだ）
