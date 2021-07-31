@@ -78,33 +78,35 @@ Telloドローンは洗練されたビジュアルオドメトリシステムと
 `data_port`   | フライトデータ（Tello状態）がこのUDPポートに送信される  | `8890`
 `video_port`  | 画像データがこのUDPポートに送信される |  `11111`
 
-## Installation
+## インストール
 
-### 1. Set up your Linux environment
+### 1. Linux環境をセットアップする
 
-Set up a Ubuntu 18.04 box or VM. This should include ffmpeg 3.4.4 and OpenCV 3.2.
+Ubuntu 18.04の実機あるいは仮想環境をセットアップする。ffmpeg 3.4.4およびOpenCV 3.2を含める必要がある。
 
-Also install asio:
+asioのインストールも必要：
 ~~~
 sudo apt install libasio-dev
 ~~~
 
-### 2. Set up your ROS environment
+### 2. ROSの環境をセットアップする
 
-[Install ROS2 Eloquent Elusor](https://index.ros.org/doc/ros2/Installation/) with the `ros-eloquent-desktop` option.
+`ros-eloquent-desktop`オプション付きで[ROS2 Eloquent Elusorをインストールする](https://index.ros.org/doc/ros2/Installation/)。
 
 If you install binaries, be sure to also install the 
 [development tools and ROS tools](https://github.com/ros2/ros2/wiki/Linux-Development-Setup#install-development-tools-and-ros-tools)
 from the source installation instructions.
+もしバイナリー（パッケージ）でインストールする場合、ソースコードからインストールする手順に記載されている
+[開発ツールとROSツール](https://github.com/ros2/ros2/wiki/Linux-Development-Setup#install-development-tools-and-ros-tools)もインストールしてください。
 
-Install these additional packages:
+以下の追加パッケージをインストールする：
 ~~~
 sudo apt install ros-eloquent-cv-bridge ros-eloquent-camera-calibration-parsers
 ~~~
 
-### 3. Install `tello_ros`
+### 3. `tello_ros`をインストールする
 
-Download, compile and install `tello_ros`:
+`tello_ros`をダウンロードし、コンパイルしてインストールする：
 ~~~
 mkdir -p ~/tello_ros_ws/src
 cd ~/tello_ros_ws/src
@@ -112,24 +114,24 @@ git clone https://github.com/clydemcqueen/tello_ros.git
 git clone https://github.com/ptrmu/ros2_shared.git
 cd ..
 source /opt/ros/eloquent/setup.bash
-# If you didn't intall Gazebo, skip tello_gazebo while building:
+# Gazeboをインストールしてない場合はビルド時にtello_gazeboをスキップしてください：
 colcon build --event-handlers console_direct+ --packages-skip tello_gazebo
 ~~~
 
 ## Teleop
 
-The driver provides a simple launch file that will allow you to fly the drone using a wired XBox One gamepad.
+ドライバーは有線のXBox Oneコントローラーでドローンを操作するためのシンプルなlaunchファイルを提供する。
 
-Turn on the drone, connect to `TELLO-XXXXX` via wi-fi, and launch ROS:
+ドローンをオンにしてからwi-fiを通じて`TELLO-XXXXX`に接続した後、ROSを起動する:
 ~~~
 cd ~/tello_ros_ws
 source install/setup.bash
 ros2 launch tello_driver teleop_launch.py
 ~~~
 
-Hit the XBox One **menu** button to take off, and the **view** button to land.
+XBox Oneの**メニュー**ボタンで離陸し、**ビュー**ボタンで着陸する。
 
-If you don't have an XBox One gamepad, you can send commands using the ROS2 CLI:
+もしXBox Oneコントローラーを持ってない場合はROS2 CLIを通じてコマンドを送ることができる：
 ~~~~
 ros2 service call /tello_action tello_msgs/TelloAction "{cmd: 'takeoff'}"
 ros2 service call /tello_action tello_msgs/TelloAction "{cmd: 'rc 0 0 0 20'}"
@@ -137,27 +139,31 @@ ros2 service call /tello_action tello_msgs/TelloAction "{cmd: 'land'}"
 ros2 service call /tello_action tello_msgs/TelloAction "{cmd: 'battery?'}"
 ~~~~
 
-You can also send `cmd_vel` messages:
+また、`cmd_vel`メッセージを送ることもできる：
 ~~~~
 ros2 topic pub /cmd_vel geometry_msgs/Twist  # Sends rc 0 0 0 0
 ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.2}}"
 ~~~~
 
-## Devices tested
+## 確認済みデバイス
 
 * Tello
   * Firmware v01.04.35.01, SDK v1.3
 * Tello EDU
   * Firmware v02.04.69.03, SDK v2.0
 
-## Versions and branches
+## バージョンとブランチ
 
 `tello_ros` was developed along with several other projects while ROS2 was rapidly changing.
 All of the related projects adopted similar conventions around branch names:
 * the `master` branch works with the latest ROS2 release (Eloquent as of this writing)
 * there may be branches for older ROS2 versions, such as `crystal` or `dashing`
+ROS2は急速に変換する間に`tello_ros`はいくつかのプロジェクトを同時に進行してきた。
+すべての関連のプロジェクトは（以下のような）似たようなルールでブランチで分けている。
+* `master`ブランチはROS2の最新バージョンに対応する（このREADMEを書く時点ではEloquent）
+* 古いROS2のバージョンに対応するブランチがいくつかがあるかも、たとえば`crystal`あるいは`dashing`。
 
-The following projects and branches were tested together:
+以下のプロジェクトとブランチが同時にテストされている：
 
 * ROS Dashing:
   * git clone https://github.com/ptrmu/ros2_shared.git
@@ -178,22 +184,23 @@ The following projects and branches were tested together:
   * git clone https://github.com/clydemcqueen/tello_ros.git
   * git clone https://github.com/clydemcqueen/flock2.git
 
-## Credits
+## 感謝
 
-The h264decoder is from: https://github.com/DaWelter/h264decoder
+h264decoderパッケージの参照先：https://github.com/DaWelter/h264decoder
 
-## Resources
+## リソース
 
 * [Tello User Manual 1.4](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20User%20Manual%20v1.4.pdf)
 * [SDK 1.3](https://terra-1-g.djicdn.com/2d4dce68897a46b19fc717f3576b7c6a/Tello%20%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3/For%20Tello/Tello%20SDK%20Documentation%20EN_1.3_1122.pdf)
-for Tello, see the errata below
+下の正誤表も参照
 * [SDK 2.0](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf)
-for Tello EDU, see the errata below
+下の正誤表も参照
 * [Tello EDU Mission Pad Guide (SDK 2.0)](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20Mission%20Pad%20User%20Guide.pdf)
-for Tello EDU
+Tello EDU用
 * [Tello Pilots Developer Forum](https://tellopilots.com/forums/tello-development.8/)
-is a good developer community
+は良い開発コミュニティー
 
-#### Tello SDK errata
+#### Tello SDK正誤表
 
 * Tello drones do not respond to `rc` commands (the SDK suggests that they return `ok` or `error`)
+* Telloドローンは`rc`コマンドにレスポンスしない（SDKによると`ok`あるいは`error`を返すだそうだ）
