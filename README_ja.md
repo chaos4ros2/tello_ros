@@ -94,9 +94,6 @@ sudo apt install libasio-dev
 
 `ros-eloquent-desktop`オプション付きで[ROS2 Eloquent Elusorをインストールする](https://index.ros.org/doc/ros2/Installation/)。
 
-If you install binaries, be sure to also install the 
-[development tools and ROS tools](https://github.com/ros2/ros2/wiki/Linux-Development-Setup#install-development-tools-and-ros-tools)
-from the source installation instructions.
 もしバイナリー（パッケージ）でインストールする場合、ソースコードからインストールする手順に記載されている
 [開発ツールとROSツール](https://github.com/ros2/ros2/wiki/Linux-Development-Setup#install-development-tools-and-ros-tools)もインストールしてください。
 
